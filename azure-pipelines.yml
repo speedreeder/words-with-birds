@@ -1,0 +1,66 @@
+# ASP.NET Core (.NET Framework)
+
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-2022'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: DotNetCoreCLI@2
+  name: Restore
+  inputs:
+    command: 'restore'
+    projects: '**/WordsWithBirds.Api.csproj'
+    feedsToUse: 'select'
+- task: DotNetCoreCLI@2
+  name: Build 
+  inputs:
+    command: 'build'
+    arguments: '--no-restore'
+- task: DotNetCoreCLI@2
+  name: Publish 
+  inputs:
+    command: 'publish'
+    projects: '**/WordsWithBirds.Api.csproj'
+    publishWebProjects: true
+    arguments: '--no-restore -o $(Build.ArtifactStagingDirectory)'
+
+- task: Npm@1
+  displayName: 'NPM Install'
+  inputs:
+    command: 'install'
+    workingDir: '$(Build.SourcesDirectory)/WordsWithBirds.Client'
+- task: Npm@1
+  displayName: 'NPM Build'
+  inputs:
+    command: 'custom'
+    workingDir: '$(Build.SourcesDirectory)/WordsWithBirds.Client'
+    customCommand: 'run build'
+
+- task: CopyFiles@2
+  inputs:
+    Contents: 'build/**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'build/'
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/clientbuild.zip'
+    replaceExistingArchive: true
+
+- task: PublishBuildArtifacts@1
+  name: Publish_Build_Artifacts
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
