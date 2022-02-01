@@ -35,15 +35,28 @@ steps:
     publishWebProjects: true
     arguments: '--no-restore -o $(Build.ArtifactStagingDirectory)'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+- task: Npm@1
+  displayName: 'NPM Install'
+  inputs:
+    command: 'install'
+    workingDir: '$(Build.SourcesDirectory)/WordsWithBirds.Client'
+- task: Npm@1
+  displayName: 'NPM Build'
+  inputs:
+    command: 'custom'
+    workingDir: '$(Build.SourcesDirectory)/WordsWithBirds.Client'
+    customCommand: 'run build'
 
 - task: CopyFiles@2
   inputs:
-    Contents: 'build/**' # Pull the build directory (React)
+    Contents: 'build/**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'build/'
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/clientbuild.zip'
+    replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
   name: Publish_Build_Artifacts
