@@ -36,7 +36,7 @@ steps:
     arguments: '--no-restore -o $(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
-  name: Publish Build Artifacts
+  name: Publish_Build_Artifacts
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
