@@ -52,6 +52,7 @@ namespace WordsWithBirds.Api.Hubs
 
             if (MemStorage.SecondsElapsed == 180)
             {
+                MemStorage.Timer.Stop();
                 await _hubContext.Clients.All.ReceiveTimer(new TimerState { SecondsRemaining = TimeSpan.FromSeconds(180 - MemStorage.SecondsElapsed), IsRunning = false });
             }
             else
@@ -81,7 +82,8 @@ namespace WordsWithBirds.Api.Hubs
         public async Task GetNewGameBoard()
         {
             MemStorage.CurrentGameBoard = new GameBoard();
-
+            await ResetTimer();
+            StartTimer();
             await Clients.All.ReceiveGameBoard(MemStorage.CurrentGameBoard);
         }
     }
