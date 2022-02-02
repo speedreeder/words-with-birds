@@ -48,7 +48,7 @@ steps:
     customCommand: 'run build'
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: 'build/'
+    rootFolderOrFile: '$(Build.SourcesDirectory)/WordsWithBirds.Client/build/*'
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/clientbuild.zip'
     replaceExistingArchive: true
