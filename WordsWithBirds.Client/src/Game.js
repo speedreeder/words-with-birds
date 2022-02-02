@@ -11,7 +11,7 @@ const Game = () => {
 
     useEffect(async () => {
         const newConnection = new HubConnectionBuilder()
-            .withUrl('https://localhost:7156/hubs/game')
+            .withUrl(`${process.env.REACT_APP_SERVER_URL}/hubs/game`)
             .withAutomaticReconnect()
             .build();
 
