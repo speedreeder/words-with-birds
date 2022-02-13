@@ -39,7 +39,8 @@ function App() {
         setFoundFlock(connected && serverFlock);
     }, [connected, serverFlock])
 
-    const joinFlock = async () => {
+    const joinFlock = async (e) => {
+        e.preventDefault()
         if (connection._connectionStarted) {
             try {
                 await connection.send('JoinFlock', flock);
@@ -73,10 +74,15 @@ function App() {
     return (
         <div id="App">
             {!foundFlock &&
-                <div>
-                <input style={{textTransform: 'uppercase'}} placeholder="FLOCK" onChange={evt => setFlock(evt.target.value.toUpperCase())} disabled={!connected} />
-                    <button disabled={!connected || !flock} onClick={joinFlock}>Join Flock</button>
-                </div>
+                <form onSubmit={e => joinFlock(e)}>
+                    <input
+                        style={{ textTransform: 'uppercase' }}
+                        placeholder="FLOCK"
+                        onChange={evt => setFlock(evt.target.value.toUpperCase())}
+                        disabled={!connected}
+                    />
+                    <button type="submit" disabled={!connected || !flock}>Join Flock</button>
+                </form>
             }
 
             {foundFlock &&
