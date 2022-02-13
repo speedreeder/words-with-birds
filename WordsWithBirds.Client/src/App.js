@@ -54,6 +54,7 @@ function App() {
     }
 
     const leaveFlock = async () => {
+        setFlock('');
         if (connection._connectionStarted) {
             try {
                 await connection.send('LeaveFlock');
@@ -73,8 +74,8 @@ function App() {
         <div id="App">
             {!foundFlock &&
                 <div>
-                <input onChange={evt => setFlock(evt.target.value)} disabled={!connected} />
-                <button disabled={!connected || !flock} onClick={joinFlock}>Join Flock</button>
+                <input style={{textTransform: 'uppercase'}} placeholder="FLOCK" onChange={evt => setFlock(evt.target.value.toUpperCase())} disabled={!connected} />
+                    <button disabled={!connected || !flock} onClick={joinFlock}>Join Flock</button>
                 </div>
             }
 
@@ -82,7 +83,7 @@ function App() {
                 <div>
                     <Game connection={connection} flock={serverFlock} />
 
-                <h1 style={{ color: 'rgba(255, 255, 255, .5)' }}>{serverFlock}</h1>
+                    <h1 style={{ color: 'rgba(255, 255, 255, .5)' }}>{serverFlock}</h1>
                     <button onClick={leaveFlock}>Leave Flock</button>
                 </div>
             }
