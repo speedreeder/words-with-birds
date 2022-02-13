@@ -1,49 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { HubConnectionBuilder } from '@microsoft/signalr';
 
 import GameBoard from './GameBoard';
 import Timer from './Timer';
 
-const Game = () => {
-    const [connection, setConnection] = useState(null);
+const Game = (props) => {
     const [timer, setTimer] = useState(null);
     const [gameboard, setGameBoard] = useState(null);
 
     useEffect(async () => {
-        const newConnection = new HubConnectionBuilder()
-            .withUrl(`${process.env.REACT_APP_SERVER_URL}/hubs/game`)
-            .withAutomaticReconnect()
-            .build();
+        if (props.connection && props.connection._connectionStarted) {
+            props.connection.on('ReceiveTimer', timer => {
+                setTimer(timer);
+            });
 
-        setConnection(newConnection);
+            props.connection.on('ReceiveGameBoard', gameboard => {
+                setGameBoard(gameboard);
+            });
+
+            await props.connection.send('GetTimer');
+            await props.connection.send('GetCurrentGameBoard');
+        }
     }, []);
 
-    useEffect(() => {
-        if (connection) {
-            connection.start()
-                .then(async result => {
-                    console.log('Connected!');
-
-                    connection.on('ReceiveTimer', timer => {
-                        setTimer(timer);
-                    });
-
-                    connection.on('ReceiveGameBoard', gameboard => {
-                        setGameBoard(gameboard);
-                    });
-
-                    await connection.send('GetTimer');
-                    await connection.send('GetCurrentGameBoard');
-
-                })
-                .catch(e => console.log('Connection failed: ', e));
-        }
-    }, [connection]);
-
     const startTimer = async () => {
-        if (connection._connectionStarted) {
+        if (props.connection._connectionStarted) {
             try {
-                await connection.send('StartTimer');
+                await props.connection.send('StartTimer');
             }
             catch (e) {
                 console.log(e);
@@ -55,9 +37,9 @@ const Game = () => {
     }
 
     const stopTimer = async () => {
-        if (connection._connectionStarted) {
+        if (props.connection._connectionStarted) {
             try {
-                await connection.send('StopTimer');
+                await props.connection.send('StopTimer');
             }
             catch (e) {
                 console.log(e);
@@ -69,9 +51,9 @@ const Game = () => {
     }
 
     const resetTimer = async () => {
-        if (connection._connectionStarted) {
+        if (props.connection._connectionStarted) {
             try {
-                await connection.send('ResetTimer');
+                await props.connection.send('ResetTimer');
             }
             catch (e) {
                 console.log(e);
@@ -83,9 +65,9 @@ const Game = () => {
     }
 
     const getNewBoard = async () => {
-        if (connection._connectionStarted) {
+        if (props.connection._connectionStarted) {
             try {
-                await connection.send('GetNewGameBoard');
+                await props.connection.send('GetNewGameBoard');
             }
             catch (e) {
                 console.log(e);
@@ -103,11 +85,11 @@ const Game = () => {
             <button onClick={stopTimer}>Stop Timer</button>
             <button onClick={resetTimer}>Reset Timer</button>
 
-            <GameBoard  gameboard={gameboard} />
+            <GameBoard gameboard={gameboard} timer={timer} />
 
             <button onClick={getNewBoard}>Get New Board</button>
         </div>
-    );
+    )
 }
 
 export default Game;

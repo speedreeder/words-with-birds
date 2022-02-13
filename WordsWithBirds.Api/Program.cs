@@ -1,6 +1,11 @@
+using System.Collections.Concurrent;
+using WordsWithBirds.Api;
 using WordsWithBirds.Api.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<ConcurrentDictionary<string, Bird>>(new ConcurrentDictionary<string, Bird>());
+builder.Services.AddSingleton<ConcurrentDictionary<string, Flock>>(new ConcurrentDictionary<string, Flock>());
 
 // Add services to the container.
 builder.Services.AddSignalR();

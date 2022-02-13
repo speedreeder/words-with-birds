@@ -6,5 +6,6 @@ namespace WordsWithBirds.Api.Hubs
     {
         Task ReceiveTimer(TimerState timerState);
         Task ReceiveGameBoard(GameBoard gameBoard);
+        Task ReceiveFlockName(string flockName);
     }
 }

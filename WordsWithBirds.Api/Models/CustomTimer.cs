@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.SignalR;
-using WordsWithBirds.Api.Hubs;
-
-namespace WordsWithBirds.Api.Models
+﻿namespace WordsWithBirds.Api.Models
 {
     public class CustomTimer : System.Timers.Timer
     {
-        public CustomTimer(double interval)
+        public CustomTimer(double interval, string flockName)
             : base(interval)
         {
+            FlockName = flockName;
         }
 
-        public IHubCallerClients<IGameClient> GameHubClients { get; set; }
+        public string FlockName { get; }
     }
 }
