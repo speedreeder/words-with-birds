@@ -87,6 +87,8 @@ function App() {
                     <button onClick={leaveFlock}>Leave Flock</button>
                 </div>
             }
+
+            <p style={{ color: 'rgba(255, 255, 255, .5)', position: 'fixed', bottom: 0 }}>Built with love for Abigail</p>
         </div>
     )
 }
