@@ -82,6 +82,9 @@ function App() {
                         disabled={!connected}
                     />
                     <button type="submit" disabled={!connected || !flock}>Join Flock</button>
+
+                    <p style={{ color: 'rgba(255, 255, 255, .5)', position: 'fixed', marginTop: '40px' }}>Built with love for Abigail</p>
+
                 </form>
             }
 
@@ -91,10 +94,12 @@ function App() {
 
                     <h1 style={{ color: 'rgba(255, 255, 255, .5)' }}>{serverFlock}</h1>
                     <button onClick={leaveFlock}>Leave Flock</button>
+
+                    <p style={{ color: 'rgba(255, 255, 255, .5)', marginTop: '40px' }}>Built with love for Abigail</p>
+
                 </div>
             }
 
-            <p style={{ color: 'rgba(255, 255, 255, .5)', position: 'fixed', bottom: 50 }}>Built with love for Abigail</p>
         </div>
     )
 }
