@@ -22,34 +22,66 @@ html {
     }
 }
 
-#letter-board {
+#letter-board-5 {
     display: grid;
-    grid-template-columns: 68px 68px 68px 68px 68px;
-    grid-template-rows: 68px 68px 68px 68px 68px;
-    gap: 10px;
+    grid-template-columns: 60px 60px 60px 60px 60px;
+    grid-template-rows: 60px 60px 60px 60px 60px;
+    gap: 5px;
     border-radius: 35px;
     position: relative;
-    width: 384px;
-    height: 384px;
+    width: 325px;
+    height: 325px;
     background: #dee0e3;
-    padding: 16px;
+    padding: 13px;
     box-shadow: inset -2px -3px 8px #fff, inset 2px 3px 8px rgba(0,0,0,.3)
 }
 
-.letter-tile {
+.letter-tile-5 {
     padding: 2px;
     text-align: center;
     box-shadow: -4px -4px 8px rgb(255 255 255 / 70%), 4px 4px 8px rgb(0 0 0 / 40%);
     border-radius: 15px;
 }
 
-    .letter-tile span {
+    .letter-tile-5 span {
         display: block;
         font-weight: bold;
         line-height: 1.5;
         width: 100%;
         height: 100%;
-        font-size: 40px;
+        font-size: 35px;
+        border-radius: 40px;
+        background: rgba(255,255,255,.5);
+    }
+
+#letter-board-6 {
+    display: grid;
+    grid-template-columns: 50px 50px 50px 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px 50px 50px 50px;
+    gap: 5px;
+    border-radius: 35px;
+    position: relative;
+    width: 325px;
+    height: 325px;
+    background: #dee0e3;
+    padding: 13px;
+    box-shadow: inset -2px -3px 8px #fff, inset 2px 3px 8px rgba(0,0,0,.3)
+}
+
+.letter-tile-6 {
+    padding: 2px;
+    text-align: center;
+    box-shadow: -4px -4px 8px rgb(255 255 255 / 70%), 4px 4px 8px rgb(0 0 0 / 40%);
+    border-radius: 15px;
+}
+
+    .letter-tile-6 span {
+        display: block;
+        font-weight: bold;
+        line-height: 1.5;
+        width: 100%;
+        height: 100%;
+        font-size: 30px;
         border-radius: 40px;
         background: rgba(255,255,255,.5);
     }

@@ -95,11 +95,11 @@ namespace WordsWithBirds.Api.Hubs
             }
         }
 
-        public async Task GetNewGameBoard()
+        public async Task GetNewGameBoard(int gameSize)
         {
             var bird = _birds[Context.ConnectionId];
 
-            bird.Flock.Board = new GameBoard();
+            bird.Flock.Board = new GameBoard((GameSizeEnum) gameSize);
             await ResetTimer();
             StartTimer();
             await Clients.Group(bird.Flock.Name).ReceiveGameBoard(bird.Flock.Board);

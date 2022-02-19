@@ -6,6 +6,7 @@ import Timer from './Timer';
 const Game = (props) => {
     const [timer, setTimer] = useState(null);
     const [gameboard, setGameBoard] = useState(null);
+    const [localGameBoardSize, setLocalGameBoardSize] = useState("5");
 
     useEffect(async () => {
         if (props.connection && props.connection._connectionStarted) {
@@ -15,6 +16,7 @@ const Game = (props) => {
 
             props.connection.on('ReceiveGameBoard', gameboard => {
                 setGameBoard(gameboard);
+                setLocalGameBoardSize(gameboard.gameSize.toString())
             });
 
             await props.connection.send('GetTimer');
@@ -67,7 +69,7 @@ const Game = (props) => {
     const getNewBoard = async () => {
         if (props.connection._connectionStarted) {
             try {
-                await props.connection.send('GetNewGameBoard');
+                await props.connection.send('GetNewGameBoard', parseInt(localGameBoardSize));
             }
             catch (e) {
                 console.log(e);
@@ -86,6 +88,13 @@ const Game = (props) => {
             <button onClick={resetTimer}>Reset Timer</button>
 
             <GameBoard gameboard={gameboard} timer={timer} />
+            <div onChange={evt => setLocalGameBoardSize(evt.target.value)} style={{ background: "#eee", borderRadius: '5px', padding: '0 10px', margin: "0 0 20px 0" }}>
+                <input type="radio" name="boardSize" defaultChecked={ localGameBoardSize !== "6" } id="5x5" value="5" />
+                <label htmlFor="5x5" style={{ margin: "0 20px 0 0" }}>5x5</label>
+
+                <input type="radio" name="boardSize" defaultChecked={ localGameBoardSize === "6"  } id="6x6" value="6" />
+                <label htmlFor="6x6">6x6</label>
+            </div>
 
             <button onClick={getNewBoard}>Get New Board</button>
         </div>

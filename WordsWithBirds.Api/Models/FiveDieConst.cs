@@ -1,6 +1,6 @@
 ﻿namespace WordsWithBirds.Api.Models
 {
-    public static class DieConst
+    public static class FiveDieConst
     {
         public static Dictionary<int, List<string>> GetDieList() {
             return new()
