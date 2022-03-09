@@ -74,11 +74,11 @@ const GameBoard = (props) => {
                     <div className="letter-tile-5"><span style={{ color: timerExpired ? 'crimson' : 'black' }}> {props.gameboard?.row4[2]} </span></div>
                     <div className="letter-tile-5"><span style={{ color: timerExpired ? 'crimson' : 'black' }}> {props.gameboard?.row4[3]} </span></div>
                     <div className="letter-tile-5"><span style={{ color: timerExpired ? 'crimson' : 'black' }}> {props.gameboard?.row4[4]} </span></div>
-                    <div className="letter-tile-5"><span style={{ color: timerExpired ? 'crimson' : 'black' }}> {props.gameboard?.row3[0]} </span></div>
-                    <div className="letter-tile-5"><span style={{ color: timerExpired ? 'crimson' : 'black' }}> {props.gameboard?.row3[1]} </span></div>
-                    <div className="letter-tile-5"><span style={{ color: timerExpired ? 'crimson' : 'black' }}> {props.gameboard?.row3[2]} </span></div>
-                    <div className="letter-tile-5"><span style={{ color: timerExpired ? 'crimson' : 'black' }}> {props.gameboard?.row3[3]} </span></div>
-                    <div className="letter-tile-5"><span style={{ color: timerExpired ? 'crimson' : 'black' }}> {props.gameboard?.row3[4]} </span></div>
+                    <div className="letter-tile-5"><span style={{ color: timerExpired ? 'crimson' : 'black' }}> {props.gameboard?.row5[0]} </span></div>
+                    <div className="letter-tile-5"><span style={{ color: timerExpired ? 'crimson' : 'black' }}> {props.gameboard?.row5[1]} </span></div>
+                    <div className="letter-tile-5"><span style={{ color: timerExpired ? 'crimson' : 'black' }}> {props.gameboard?.row5[2]} </span></div>
+                    <div className="letter-tile-5"><span style={{ color: timerExpired ? 'crimson' : 'black' }}> {props.gameboard?.row5[3]} </span></div>
+                    <div className="letter-tile-5"><span style={{ color: timerExpired ? 'crimson' : 'black' }}> {props.gameboard?.row5[4]} </span></div>
                 </div>
             }
             
